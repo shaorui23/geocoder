@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>地点:</b>
+  <%= @location.address %>
+</p>
+
+<p>
+  <b>纬度:</b>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <b>经度:</b>
+  <%= @location.longitude %>
+</p>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
+
+<div id = "right">
+<h3>周遭地点</h3>
+<ul>
+<% for location in @location.nearbys(100000) %>
+  <li><%= link_to location.address, location %> (<%= location.distance.round(2) %> miles)</li>
+<% end %>
+</ul>
+</div>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
